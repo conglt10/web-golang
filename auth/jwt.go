@@ -1,12 +1,9 @@
 package jwt
 
 import (
-	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
-	// "strconv"
 	"strings"
 	"time"
 
@@ -24,7 +21,7 @@ func Create(username string) (string, error) {
 
 func Verify(r *http.Request) error {
 	tokenString := Extract(r)
-	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+	_, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
 		}
@@ -35,9 +32,6 @@ func Verify(r *http.Request) error {
 		return err
 	}
 
-	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		Pretty(claims)
-	}
 	return nil
 }
 
@@ -68,18 +62,8 @@ func ExtractUsernameFromToken(r *http.Request) (string, error) {
 	}
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		Pretty(claims)
 		username = fmt.Sprintf("%v", claims["username"])
 	}
 
 	return username, nil
-}
-
-func Pretty(data interface{}) {
-	_, err := json.MarshalIndent(data, "", " ")
-	if err != nil {
-		log.Println(err)
-		return
-	}
-
 }

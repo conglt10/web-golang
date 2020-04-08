@@ -21,6 +21,7 @@ func GetAllPosts(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	var result []bson.M 
 	data, err := collection.Find(context.Background(), bson.M{})
 
+
 	if err != nil {
 		res.JSON(w, 500, "Internal Server Error")
 		return
@@ -90,6 +91,7 @@ func CreatePost(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	
 	title = models.Santize(title)
 	uid := uuid.NewV4()
+
 	id := fmt.Sprintf("%x-%x-%x-%x-%x", uid[0:4], uid[4:6], uid[6:8], uid[8:10], uid[10:])
 	collection := db.ConnectPosts();
 
