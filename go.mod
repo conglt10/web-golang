@@ -8,8 +8,6 @@ require (
 	github.com/joho/godotenv v1.3.0
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/satori/go.uuid v1.2.0
-	github.com/stretchr/testify v1.4.0 // indirect
-	go.mongodb.org/mongo-driver v1.3.1
-	golang.org/x/crypto v0.0.0-20190530122614-20be4c3c3ed5
-	gopkg.in/yaml.v2 v2.2.4 // indirect
+	go.mongodb.org/mongo-driver v1.5.1
+	golang.org/x/crypto v0.0.0-20200302210943-78000ba7a073
 )
